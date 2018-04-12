@@ -1,0 +1,14 @@
+{
+    "server" : {
+        "port" : 8001,
+        "db" : {
+            "host" : "localhost",
+            "database" : "una",
+            "user" : "una_dev",
+            "password" : "qwerty"
+        }
+    },
+    "auth" : {
+        "token" : "66A0E5D236E6CBC658D2791A03FCE48AEF3C67515EE6B219E91FB5A2248E6063"
+    }
+}
