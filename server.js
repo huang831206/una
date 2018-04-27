@@ -6,6 +6,7 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var moment = require('moment');
 var config = require('./config.json');
+var axios = require('axios');
 
 var app = express();
 var mysql_conn;
@@ -37,6 +38,22 @@ app.post('/', function (req, res) {
                             console.log('[Error] Uable to insert into database.\n' + error);
                         } else {
                             console.log('[Message] Incoming message inserted. seqNumber:' + req.body.seqNumber);
+                            axios({
+                                url: 'http://localhost/api/message',
+                                method: 'post',
+                                headers: {
+                                    token: config.auth.token
+                                },
+                                data: {
+                                    id: result.insertId
+                                }
+                            }).then(function (result) {
+                                console.log('[Message] Message delivered, id:' + result.insertId);
+                                // console.log(result);
+                            }).catch(function (error) {
+                                console.log('[Error] Failed to deliver message.');
+                                console.log(error);
+                            })
                         }
                     });
                 } else {

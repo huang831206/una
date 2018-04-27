@@ -21,5 +21,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/t', function () {
-    return 'gg';
+    $config = json_decode(File::get(base_path('config.json')));
+    return $config->auth->token;
 });
+
+Route::get('dashboard', 'HomeController@dashboard');

@@ -9,6 +9,31 @@ use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller
 {
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function send(Request $request)
+    {
+        // TODO: put this to a middleware
+        $config = json_decode(\File::get(base_path('config.json')));
+
+        if ($request->headers->get('token') == $config->auth->token) {
+            //message came in
+
+            event(new \App\Events\MessageReceived($request->id));
+        } else {
+            abort(404);
+        }
+
+        // return DB::table('messages')->insertGetId(['data' => json_encode($request->all())]);
+
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +62,7 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        return DB::table('messages')->insertGetId(['data' => json_encode($request->all())]);
+
     }
 
     /**
@@ -83,5 +108,13 @@ class MessageController extends Controller
     public function destroy(Message $message)
     {
         //
+    }
+
+
+    public function forge(Request $request)
+    {
+
+        $message = factory(Message::class)->create();
+        event(new \App\Events\MessageReceived($message->id));
     }
 }

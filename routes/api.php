@@ -21,4 +21,5 @@ Route::middleware('api')->get('/tt', function (Request $request) {
     return 'api';
 });
 
-Route::middleware('api')->post('/message', 'MessageController@store');
+Route::middleware('api')->post('/message', 'MessageController@send');
+Route::middleware('api')->get('/message/forge', 'MessageController@forge');

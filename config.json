@@ -9,6 +9,8 @@
         }
     },
     "auth" : {
-        "token" : "66A0E5D236E6CBC658D2791A03FCE48AEF3C67515EE6B219E91FB5A2248E6063"
+        "token" : "66A0E5D236E6CBC658D2791A03FCE48AEF3C67515EE6B219E91FB5A2248E6063",
+        "sigfox_login" : "5a687d709058c20d4903bb11",
+        "sigfox_password" : "ad7b301e065976ab28860dc4b2aed29a"
     }
 }
