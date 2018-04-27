@@ -6,8 +6,16 @@
  */
 
 require('./bootstrap');
+window.alertify = require('alertify.js');
+
 
 window.Vue = require('vue');
+import Vuetify from 'vuetify'
+import * as VueGoogleMaps from 'vue2-google-maps'
+
+Vue.use(Vuetify)
+
+window.Bus = new Vue();
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,7 +24,27 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('dashboard-layout', require('./layout/DashboardLayout.vue'));
+Vue.component('main-map', require('./components/Map.vue'));
+Vue.component('message', require('./components/message.vue'));
 
-const app = new Vue({
-    el: '#app'
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyAcIcAUlACAAytFIbjQa8WoeNdRKnbufVE',
+    libraries: 'places', // This is required if you use the Autocomplete plugin
+  }
+});
+
+const vm = new Vue({
+    el: '#app',
+    data: {
+        arr: [
+            {n:1},{n:2},{n:3}
+        ]
+    },
+    methods: {
+        add: function(){
+            console.log('add');
+        }
+    }
 });
